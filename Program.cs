@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 // Namespace
 namespace NumberGuesser
@@ -30,6 +31,12 @@ namespace NumberGuesser
             string input = Console.ReadLine();
 
             Console.WriteLine("Hello {0}, let's play a game...", input);
+
+            // Init correct number
+            int correctNumber = 7;
+
+            // Init guess var
+            int guess = 0;
         }
     }
 }
