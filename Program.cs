@@ -10,6 +10,77 @@ namespace NumberGuesser
         // Entry point method
         static void Main(string[] args)
         {
+            GetAppInfo(); // Run GetAppInfo function to fetch info
+            GetGreetingInfo(); // Run GetGreetingInfo function to fetch info
+
+            while (true)
+            {
+                // Create a new Random object
+                Random random = new Random();
+                // Init correct number
+                int correctNumber = random.Next(1, 10);
+
+                // Init guess var
+                int guess = 0;
+
+                // Ask user for number
+                Console.WriteLine("Guess a number between 1 and 10?");
+
+                // While guess is not correct
+                while (guess != correctNumber)
+                {
+                    // Get users input
+                    string input = Console.ReadLine();
+
+                    // Make sure user inputs number
+                    if (!int.TryParse(input, out guess))
+                    {
+                        // Print error message 
+                        PrintColorMessage(ConsoleColor.Red, "Please use an actual number");
+                        
+                        // Keep going 
+                        continue;
+                    }
+
+                    // Cast to int and put it in guess var(Use Int32 to parse str to int)
+                    guess = Int32.Parse(input);
+
+                    // Match guess to correct number
+                    if (guess != correctNumber)
+                    {
+                        PrintColorMessage(ConsoleColor.Red, "Wrong number please try again");
+                    }
+                }
+
+                // Output success message
+                if (guess == correctNumber)
+                {
+                    // Print success message
+                    PrintColorMessage(ConsoleColor.Yellow, "CORRECT!! You guessed it!");
+
+                    // Ask the user if they want to play again
+                    Console.WriteLine("Do you want to play again? [Y or N]");
+
+                    // Get answer
+                    string answer = Console.ReadLine().ToUpper();
+
+                    if(answer == "Y")
+                    {
+                        continue;
+                    }
+                    else if(answer == "N")
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+            }
+        }
+
+        static void GetAppInfo(){
             // SET app variables
             string appName = "Number Guesser";
             string appVersion = "1.0.0";
@@ -23,20 +94,28 @@ namespace NumberGuesser
 
             // Reset text color
             Console.ResetColor();
+        }
 
+        static void GetGreetingInfo(){
             // Asks users name
             Console.WriteLine("What is your name?");
 
             // Get user input
-            string input = Console.ReadLine();
+            string inputName = Console.ReadLine();
 
-            Console.WriteLine("Hello {0}, let's play a game...", input);
+            Console.WriteLine("Hello {0}, let's play a game...", inputName);
+        }
 
-            // Init correct number
-            int correctNumber = 7;
+        // Print color message 
+        static void PrintColorMessage(ConsoleColor color, string message){
+            // Change text color
+            Console.ForegroundColor = color;
 
-            // Init guess var
-            int guess = 0;
+            // Tell user its not a number
+            Console.WriteLine(message);
+
+            // Reset text color
+            Console.ResetColor();
         }
     }
 }
